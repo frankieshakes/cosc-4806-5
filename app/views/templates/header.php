@@ -7,6 +7,8 @@ if (!isset($_SESSION['auth'])) {
 <html lang="en">
     <head>
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+      <link href="/public/css/reports.css" rel="stylesheet">
         <link rel="icon" href="/favicon.png">
         <title>COSC 4806</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -15,6 +17,7 @@ if (!isset($_SESSION['auth'])) {
         <meta name="mobile-web-app-capable" content="yes">
     </head>
     <body class="py-4 bg-light">
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="/home">COSC 4806</a>

@@ -6,7 +6,15 @@ class Reminder {
 
   }
 
-  public function fetchAllReminders () {
+  public function fetchAllReminders() {
+    $db = db_connect();
+    $stmt = $db->prepare("select reminders.*, users.username from reminders left join users on reminders.user_id = users.id");
+    $stmt->execute();
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $rows;
+  }
+
+  public function fetchUserReminders () {
     $db = db_connect();
     $stmt = $db->prepare("select * from reminders WHERE user_id = :user_id AND deleted = 0 ORDER BY created_at DESC;");
     $stmt->bindValue(':user_id', $_SESSION['user_id']);

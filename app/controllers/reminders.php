@@ -3,7 +3,7 @@
 class Reminders extends Controller {
   public function index() {
     $reminders = $this->model('Reminder');
-    $allReminders = $reminders->fetchAllReminders();
+    $allReminders = $reminders->fetchUserReminders();
 
     $this->view('reminders/index', ['reminders' => $allReminders]);
     die;

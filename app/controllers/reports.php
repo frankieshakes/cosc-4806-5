@@ -7,7 +7,10 @@ class Reports extends Controller {
   }
 
   public function reminders() {
-    echo 'reports/reminders';
+    $reminders = $this->model('Reminder');
+    $allReminders = $reminders->fetchAllReminders();
+
+    $this->view('reports/reminders', ['reminders' => $allReminders]);
     die;
   }
 
