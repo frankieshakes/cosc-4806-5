@@ -39,6 +39,7 @@ class User {
         $_SESSION['auth'] = 1;
         $_SESSION['username'] = ucwords($username);
         $_SESSION['user_id'] = $rows['id'];
+        $_SESSION['is_admin'] = $rows['admin'] == 1 ? true : false;
 
         $this->username = ucwords($username);      
 
@@ -48,7 +49,12 @@ class User {
         // log successful authentication attempt
         $this->logAuthenticationAttempt($username, true);
 
-        header('Location: /home');
+        // redirect to reports dashboard if user is an admin
+        if ($rows['admin'] == 1) {
+          header('Location: /reports');
+        } else {
+          header('Location: /home');
+        }
         die;
       } else {
         // log failed authentication attempt and redirect back to login
