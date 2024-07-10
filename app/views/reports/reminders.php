@@ -1,7 +1,7 @@
 <?php require_once 'app/views/templates/header.php' ?>
 <div class="container-fluid bg-light-subtle">
 
-  <div class="row border-top border-bottom">
+  <div class="row border-top">
     <div class="sidebar border-end col-md-3 col-lg-2 p-0">
       <div class="offcanvas-md offcanvas-end" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
         
@@ -31,49 +31,89 @@
       </div>
     </div>
   <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-      <h1 class="h2">Reminders</h1>
-    </div>
-
-    <h2>Reminders for All Users</h2>
-    <div class="table-responsive small">
-      <table class="table table-striped">
-                <thead>
+    <div class="container-fluid">
+      <div class="row">
+        <!-- <?php print_r($data['reminderCounts']['userReminders']); ?> -->
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Reminders</h1>
+      </div>
+      <div class="col-lg-7 col-xl-8 pe-lg-2 mb-3">
+        <h4>Total Reminders</h4>
+        <div class="card h-lg-100 overflow-hidden shadow">
+          <div class="card-body p-0">
+            <div class="table-responsive scrollbar">
+              <table class="table table-dashboard mb-0 table-borderless fs-10 border-200">
+                <thead class="border-bottom">
                   <tr>
-                    <th scope="col">Username</th>
-                  <th scope="col">Reminder</th>
-                  <th scope="col">Status</th>
-      </tr>
-      </thead>
-                <tbody class="table-group-divider">
-                  <?php foreach ($data['reminders'] as $reminder): ?>
-                  <tr>
-                    <td><?php echo $reminder['username']; ?></td>
-                    <td>
-
-                      <?php if($reminder['completed'] == 1): ?>
-                        <s>
-                      <?php endif; ?>
-
-                      <?php echo $reminder['subject']; ?>
-
-                      <?php if($reminder['completed'] == 1): ?>
-                        </s>
-                      <?php endif; ?>
+                    <th class="bg-body-tertiary text-900 ps-3">Username</th>
+                    <th class="bg-body-tertiary text-900">Reminder</th>
+                    <th class="bg-body-tertiary text-900 pe-3">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($data['reminders'] as $reminder): ?>
+                  <tr class="border-bottom border-200">
+                    <td class="ps-3">
+                      <?php echo $reminder['username']; ?>
                     </td>
-                    <td>
+                    <td class="align-middle fw-semi-bold">
+                      <?php echo $reminder['subject']; ?>
+                    </td>
+                    <td class="align-middle pe-3">
                       <?php if($reminder['completed'] == 1): ?>
-                        <p>Completed <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                        Completed <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
                           <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/>
-                        </svg></p>
+                        </svg>
                       <?php else: ?>
-                        <p>Not Completed</p>
+                        Not Completed
                       <?php endif; ?>
                     </td>
                   </tr>
-                  <?php endforeach; ?>
+                <?php endforeach; ?>
                 </tbody>
               </table>
+            </div>
+          </div>
+          <div class="card-footer bg-body-tertiary py-2 px-3">
+            <div class="row flex-between-center">
+              <div class="col-auto">
+                Total Reminders: <?php echo $data["reminderCounts"]["totalReminders"]; ?>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-5 col-xl-4 ps-lg-2 mb-3">
+        <h4>Reminders/User</h4>
+        <div class="card h-lg-100 overflow-hidden shadow">
+          <div class="card-body p-0">
+            <div class="table-responsive scrollbar">
+              <table class="table table-dashboard mb-0 table-borderless fs-10 border-200">
+                <thead class="border-bottom">
+                  <tr>
+                    <th class="bg-body-tertiary text-900 ps3">Username</th>
+                    <th class="bg-body-tertiary text-900 text-end pe-3">Reminders</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($data['reminderCounts']['userReminders'] as $user): ?>
+                  <tr class="border-bottom border-200">
+                    <td class="ps-3">
+                      <?php echo $user['username']; ?>
+                    </td>
+                    <td class="align-middle text-end pe-3">
+                      <?php echo $user['total_reminders']; ?>
+                    </td>
+                  </tr>
+                <?php endforeach; ?>
+                </tbody>
+              </table>
+            </div>
+          </div>        
+        </div>
+      </div>
+      </div>
     </div>
   </main>
 </div>

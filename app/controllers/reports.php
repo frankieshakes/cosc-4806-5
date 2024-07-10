@@ -9,8 +9,9 @@ class Reports extends Controller {
   public function reminders() {
     $reminders = $this->model('Reminder');
     $allReminders = $reminders->fetchAllReminders();
+    $reminderCounts = $reminders->fetchReminderCounts();
 
-    $this->view('reports/reminders', ['reminders' => $allReminders]);
+    $this->view('reports/reminders', ['reminders' => $allReminders, 'reminderCounts' => $reminderCounts]);
     die;
   }
 
