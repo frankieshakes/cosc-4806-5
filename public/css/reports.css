@@ -15,6 +15,7 @@
 
 .sidebar .nav-link.active {
   color: #2470dc;
+  background: var(--bs-secondary-bg);
 }
 
 /*
