@@ -1,7 +1,7 @@
 <?php require_once 'app/views/templates/header.php' ?>
-<div class="container">
+<div class="container-fluid">
 
-  <div class="row d-flex justify-content-center align-items-center h-100">
+  <div class="row d-flex justify-content-center align-items-center h-100 pt-3">
     <div class="col col-lg-8 col-xl-6">
     <div class="card rounded-3 shadow-sm">
       <div class="card-body p-4">
