@@ -8,7 +8,8 @@ class Reports extends Controller {
   }
   
   public function index() {
-    echo 'reports';
+    // redirect to reminders
+    header('Location: /reports/reminders');
     die;
   }
 

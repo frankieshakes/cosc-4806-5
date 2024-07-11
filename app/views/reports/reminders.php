@@ -8,12 +8,6 @@
           <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" href="/reports">
-                  <svg class="bi"><use xlink:href="#house-fill"></use></svg>
-                  Reports
-                </a>
-              </li>
-              <li class="nav-item">
                 <a class="nav-link d-flex align-items-center gap-2 active" href="/reports/reminders">
                   <svg class="bi"><use xlink:href="#check2-square"></use></svg>
                   Reminders
