@@ -4,6 +4,11 @@ class Reports extends Controller {
   private Report $report;
   
   function __construct() {
+    if (!$_SESSION['is_admin']) {
+      // redirect to reminders
+      header('Location: /home');
+    }
+    
     $this->report = $this->model('Report');
   }
   

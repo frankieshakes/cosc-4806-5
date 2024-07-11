@@ -2,6 +2,8 @@
 if (!isset($_SESSION['auth'])) {
     header('Location: /login');
 }
+
+$is_admin = $_SESSION['is_admin'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,6 +28,11 @@ if (!isset($_SESSION['auth'])) {
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <?php if ($is_admin): ?>
+        <li class="nav-item">
+          <a class="nav-link" href="/reports">Reports</a>
+        </li>                
+        <?php endif; ?>
         <li class="nav-item">
           <a class="nav-link" href="/reminders">Reminders</a>
         </li>                
