@@ -35,8 +35,11 @@
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">Logins</h1>
         </div>
-        <div class="col-12 mb-3">
+          <div class="col-lg-7 col-xl-8 pe-lg-2 mb-3">
           <div class="card h-lg-100 overflow-hidden shadow">
+            <div class="card-header py-3">
+              <h6 class="mb-0 text-nowrap py-2 py-xl-0">User Logins</h6>
+            </div>
             <div class="card-body p-0">
               <div class="table-responsive scrollbar">
                 <table class="table table-dashboard mb-0 table-borderless fs-10 border-200">
@@ -78,9 +81,58 @@
             </div>
           </div>
         </div>      
+        <div class="col-lg-5 col-xl-4 ps-lg-2 mb-3">
+          <div class="card h-lg-100 overflow-hidden shadow">  
+            <div class="card-header py-3">
+              <h6 class="mb-0 text-nowrap py-2 py-xl-0">Total Login Attempts</h6>
+            </div>
+            <div class="card-body">
+              <canvas id="loginCharts"></canvas>
+            </div>        
+          </div>
+        </div>
       </div>
     </div>
   </main>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script>
+  (function() {
+    const loginNames = <?php echo json_encode(array_map(function($login) {
+          return $login['username'];
+      }, $data['loginsReport'])); ?>
+
+    const loginCounts = <?php echo json_encode(array_map(function($login) {
+    return $login['total'];
+}, $data['loginsReport'])); ?>
+        
+    const data = {
+      labels: loginNames,
+      datasets: [{
+        label: 'Total Login Attemps',
+        data: loginCounts,
+        hoverOffset: 4
+      }]
+    };
+
+    const config = {
+      type: 'pie',
+      data: data,
+        options: {
+          plugins: {
+            legend: {
+              position: 'bottom',
+            },
+          }
+        },
+    };
+
+    new Chart(
+      document.getElementById('loginCharts'),
+      config
+    );
+  })();
+</script>  
 
 <?php require_once 'app/views/templates/footer.php' ?>
