@@ -6,14 +6,6 @@ class Reminder {
 
   }
 
-  public function fetchAllReminders() {
-    $db = db_connect();
-    $stmt = $db->prepare("select reminders.*, users.username from reminders left join users on reminders.user_id = users.id");
-    $stmt->execute();
-    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    return $rows;
-  }
-
   public function fetchUserReminders() {
     $db = db_connect();
     $stmt = $db->prepare("select * from reminders WHERE user_id = :user_id AND deleted = 0 ORDER BY created_at DESC;");
@@ -21,25 +13,6 @@ class Reminder {
     $stmt->execute();
     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $rows;
-  }
-
-  public function fetchReminderCounts() {
-    $db = db_connect();
-
-    // fetch total reminders count
-    $result = $db->query("select count(*) from reminders");
-    $count = $result->fetchColumn();
-
-    // fetch count per user
-    $stmt = $db->prepare("SELECT users.username, count( reminders.user_id ) as total_reminders FROM reminders LEFT JOIN users ON reminders.user_id = users.id GROUP BY users.id ORDER BY total_reminders DESC");
-
-    $stmt->execute();
-    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-    return array(
-      "totalReminders" => $count,
-      "userReminders" => $rows
-    );
   }
 
   public function toggleComplete($id) {
