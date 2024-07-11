@@ -1,22 +1,28 @@
 <?php
 
 class Reports extends Controller {
+  private Report $report;
+  
+  function __construct() {
+    $this->report = $this->model('Report');
+  }
+  
   public function index() {
     echo 'reports';
     die;
   }
 
   public function reminders() {
-    $reminders = $this->model('Reminder');
-    $allReminders = $reminders->fetchAllReminders();
-    $reminderCounts = $reminders->fetchReminderCounts();
-
-    $this->view('reports/reminders', ['reminders' => $allReminders, 'reminderCounts' => $reminderCounts]);
+    $remindersReport = $this->report->getReminderReport();
+    
+    $this->view('reports/reminders', ['remindersReport' => $remindersReport]);
     die;
   }
 
   public function logins() {
-    echo 'reports/logins';
+    $loginsReport = $this->report->getLoginsReport();
+
+    $this->view('reports/logins', ['loginsReport' => $loginsReport]);
     die;
   }
 }
