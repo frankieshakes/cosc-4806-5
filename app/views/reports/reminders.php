@@ -85,32 +85,11 @@
         <div class="col-lg-5 col-xl-4 ps-lg-2 mb-3">
           <div class="card h-lg-100 overflow-hidden shadow">
             <div class="card-header py-3">
-              <h6 class="mb-0 text-nowrap py-2 py-xl-0">Reminders per user</h6>
+              <h6 class="mb-0 text-nowrap py-2 py-xl-0">Total Reminders</h6>
             </div>
-            <div class="card-body p-0">
-              <div class="table-responsive scrollbar">
-                <table class="table table-dashboard mb-0 table-borderless fs-10 border-200">
-                  <thead class="border-bottom">
-                    <tr>
-                      <th class="bg-primary-subtle bg-gradient fw-medium ps-3">Username</th>
-                      <th class="bg-primary-subtle bg-gradient fw-medium text-end pe-3">Reminders</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  <?php foreach ($data['remindersReport']['userReminders'] as $user): ?>
-                    <tr class="border-bottom border-200">
-                      <td class="ps-3">
-                        <?php echo $user['username']; ?>
-                      </td>
-                      <td class="align-middle text-end pe-3">
-                        <?php echo $user['total_reminders']; ?>
-                      </td>
-                    </tr>
-                  <?php endforeach; ?>
-                  </tbody>
-                </table>
-              </div>
-            </div>        
+            <div class="card-body">
+              <canvas id="reminderCharts"></canvas>
+            </div>                 
           </div>
         </div>
         </div>
@@ -118,4 +97,43 @@
     </main>
   </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <script>
+      (function() {
+        const reminderNames = <?php echo json_encode(array_map(function($reminder) {
+              return $reminder['username'];
+          }, $data['remindersReport']['userReminders'])); ?>
+
+        const reminderCounts = <?php echo json_encode(array_map(function($reminder) {
+        return $reminder['total_reminders'];
+    }, $data['remindersReport']['userReminders'])); ?>
+
+        const data = {
+          labels: reminderNames,
+          datasets: [{
+            label: 'Total Reminders',
+            data: reminderCounts,
+            hoverOffset: 4
+          }]
+        };
+
+        const config = {
+          type: 'bar',
+          data: data,
+            options: {
+              plugins: {
+                legend: {
+                  position: 'bottom',
+                },
+              }
+            },
+        };
+
+        new Chart(
+          document.getElementById('reminderCharts'),
+          config
+        );
+      })();
+    </script>  
+    
     <?php require_once 'app/views/templates/footer.php' ?>
